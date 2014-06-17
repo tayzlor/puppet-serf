@@ -15,10 +15,11 @@ class serf::params{
   $rpc_addr         = "${bind}:7373"
   $install_path     = '/usr/local/bin/'
   $install_method   = 'url'
-  $sample_handler   = false
+  $sample_handler   = true
   $handler_home     = "{config_dir}/handlers"
   $package_name     = 'serf'
   $package_ensure   = 'present'
+  $service_provider = 'init'
 
   $event_handler    = [
     '/etc/serf/handlers/handler.sh'
@@ -27,9 +28,44 @@ class serf::params{
     '127.0.0.1'
   ]
 
-  $service_name = 'serf'
-  $service_ensure = true
-  $service_hasrestart = true
-  $service_hasstatus = true
+  # service parameters
+  case $::operatingsystem {
+    'RedHat', 'CentOS', 'Fedora', 'Scientific', 'Amazon', 'OracleLinux': {
+      $service_name       = 'serf'
+      $service_hasrestart = true
+      $service_hasstatus  = true
+      $service_pattern    = $service_name
+      $service_providers  = [ 'init' ]
+      $defaults_location  = '/etc/sysconfig'
+    }
+    'Debian', 'Ubuntu': {
+      $service_name       = 'serf'
+      $service_hasrestart = true
+      $service_hasstatus  = true
+      $service_pattern    = $service_name
+      $service_providers  = [ 'init' ]
+      $defaults_location  = '/etc/default'
+    }
+    'Darwin': {
+      $service_name       = 'serf'
+      $service_hasrestart = true
+      $service_hasstatus  = true
+      $service_pattern    = $service_name
+      $service_providers  = [ 'launchd' ]
+      $defaults_location  = false
+    }
+    'OpenSuSE': {
+      $service_name       = 'serf'
+      $service_hasrestart = true
+      $service_hasstatus  = true
+      $service_pattern    = $service_name
+      $service_providers  = 'systemd'
+      $defaults_location  = '/etc/sysconfig'
+    }
+    default: {
+      fail("\"${module_name}\" provides no service parameters
+            for \"${::operatingsystem}\"")
+    }
+  }
 
 }

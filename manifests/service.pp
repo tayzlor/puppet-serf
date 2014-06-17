@@ -1,11 +1,14 @@
 class serf::service{
 
-  service { $::serf::service_name:
-    ensure     => $::serf::service_ensure,
-    enable     => $::serf::service_enable,
-    restart    => "/sbin/initctl restart ${::serf::service_name}",
-    start      => "/sbin/initctl start ${::serf::service_name}",
-    stop       => "/sbin/initctl stop ${::serf::service_name}",
-    status     => "/sbin/initctl status ${::serf::service_name} | grep running",
+  case $serf::real_service_provider {
+
+    init: {
+      serf::service::init { 'serf': }
+    }
+    systemd: {
+      serf::service::systemd { 'serf': }
+    }
+    default: {
+      fail("Unknown service provider ${serf::service_provider}")
   }
 }

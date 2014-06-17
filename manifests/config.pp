@@ -15,11 +15,5 @@ class serf::config{
     $::serf::config_file:
       ensure  => present,
       content => template('serf/config.json.erb');
-    'serf_upstart':
-      path    =>  '/etc/init/serf.conf',
-      content =>  template('serf/upstart.conf.erb')
   }
-
-
-
 }

@@ -28,11 +28,9 @@ Vagrant.configure("2") do |config|
   if defined? VagrantPlugins::Cachier
     config.cache.auto_detect = true
   end
-  if defined?(VagrantPlugins::ProviderVirtualBox::Action::CheckGuestAdditions)
-    config.vbguest.auto_update = false
-  end
+
   config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box'
-  config.vm.box = 'ubuntu-server-12042-x64-vbox4210'
+  config.vm.box = "rmg-vagrant"
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", MEMORY]
   end

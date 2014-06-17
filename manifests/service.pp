@@ -10,5 +10,6 @@ class serf::service{
     }
     default: {
       fail("Unknown service provider ${serf::service_provider}")
+    }
   }
 }

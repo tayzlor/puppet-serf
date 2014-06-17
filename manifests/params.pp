@@ -19,7 +19,6 @@ class serf::params{
   $handler_home     = "{config_dir}/handlers"
   $package_name     = 'serf'
   $package_ensure   = 'present'
-  $service_provider = 'init'
 
   $event_handler    = [
     '/etc/serf/handlers/handler.sh'

@@ -4,7 +4,7 @@ class serf::config{
     owner  => $::serf::config_owner,
     group  => $::serf::config_group,
     mode   => $::serf::config_file_mode,
-    notify => Service['serf'],
+    notify => Service[$::serf::service_name],
   }
 
   file {
@@ -15,5 +15,8 @@ class serf::config{
     $::serf::config_file:
       ensure  => present,
       content => template('serf/config.json.erb');
+    'serf_init.d':
+      path => '/etc/init.d/serf',
+      content => template('serf/serf.init.erb')
   }
 }

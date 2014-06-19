@@ -46,19 +46,9 @@ class serf::params{
     '127.0.0.1'
   ]
 
-  file { 'serf':
-    ensure  => present,
-    path    => '/etc/init.d/serf',
-    mode    => '0755',
-    content => template('serf/serf.init.erb'),
-    notify  => Service['serf'],
-  }
-
-  service { 'serf':
-    ensure    => running,
-    name      => 'serf',
-    enable    => true,
-    require   => File['serf'] 
-  }
+  $service_name = 'serf'
+  $service_ensure = true
+  $service_hasrestart = true
+  $service_hasstatus = true
 
 }

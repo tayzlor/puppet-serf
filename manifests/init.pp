@@ -36,9 +36,11 @@ class serf (
 
   include install
   include config
+  include service
 
   Class['install'] ->
-  Class['config']
+  Class['config'] ~>
+  Class['service']
 
 
   if $handler {

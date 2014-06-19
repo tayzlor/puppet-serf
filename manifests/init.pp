@@ -27,37 +27,24 @@ class serf (
   $rpc_addr         = $::serf::params::rpc_addr,
   $install_url      = $::serf::params::install_url,
   $install_method   = $::serf::params::install_method,
-  $sample_handler   = $::serf::params::sample_handler,
+  $handler          = $::serf::params::sample_handler,
   $package_name     = $::serf::params::package_name,
   $package_ensure   = $::serf::params::package_ensure,
   $config_owner     = $::serf::params::config_owner,
   $config_group     = $::serf::params::config_group,
-  $service_provider = 'init',
 ) inherits serf::params
 {
 
   include install
   include config
-  include service
-
-  if is_array($serf::params::service_providers) {
-    # Verify the service provider given is in the array
-    if ! ($service_provider in $serf::params::service_providers) {
-      fail("\"${service_provider}\" is not a valid provider for \"${::operatingsystem}\"")
-    }
-    $real_service_provider = $service_provider
-  } else {
-    # There is only one option so simply set it
-    $real_service_provider = $serf::params::service_providers
-  }
 
   Class['install'] ->
   Class['config'] ~>
-  Class['service']
 
-  if $sample_handler {
+
+  if $handler {
     include handler
     Class['handler'] ->
-    Class['service']
+
   }
 }

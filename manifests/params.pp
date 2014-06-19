@@ -20,7 +20,7 @@
 #
 class serf::params{
   $version          = '0.3.0'
-  $protocol_version = 1
+  $protocol_version = 2
   $bind             = $::ipaddress
   $advertise        = $::ipaddress
   $config_dir       = '/etc/serf'
@@ -35,7 +35,7 @@ class serf::params{
   $rpc_addr         = "${bind}:7373"
   $install_path     = '/usr/local/bin/'
   $install_method   = 'url'
-  $sample_handler   = true
+  $handler          = true
   $handler_home     = "{config_dir}/handlers"
   $package_name     = 'serf'
   $package_ensure   = 'present'
@@ -46,20 +46,19 @@ class serf::params{
     '127.0.0.1'
   ]
 
-  # service parameters
-  case $::operatingsystem {
-    'RedHat', 'CentOS', 'Fedora', 'Scientific', 'Amazon', 'OracleLinux': {
-      $service_name       = 'serf'
-      $service_hasrestart = true
-      $service_hasstatus  = true
-      $service_pattern    = $service_name
-      $service_providers  = [ 'init' ]
-      $defaults_location  = '/etc/sysconfig'
-    }
-    default: {
-      fail("\"${module_name}\" provides no service parameters
-            for \"${::operatingsystem}\"")
-    }
+  file { 'serf':
+    ensure  => present,
+    path    => '/etc/init.d/serf',
+    mode    => '0755',
+    content => template('serf/serf.init.erb'),
+    notify  => Service['serf'],
+  }
+
+  service { 'serf':
+    ensure    => running,
+    name      => 'serf',
+    enable    => true,
+    require   => File['serf'] 
   }
 
 }

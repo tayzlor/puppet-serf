@@ -38,10 +38,5 @@ describe 'serf::config' do
     it { should contain_file('/etc/serf/serf.conf').with(:group=>'serf',:owner=>'serf') }
   end
 
-  context 'should notify service on any change' do
-    let(:pre_condition) { 'include serf' }
-    it { should contain_file('/etc/serf/serf.conf').that_notifies('Service[serf]')}
-  end
-
 
 end

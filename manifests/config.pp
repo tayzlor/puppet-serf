@@ -4,7 +4,7 @@ class serf::config{
     owner  => $::serf::config_owner,
     group  => $::serf::config_group,
     mode   => $::serf::config_file_mode,
-    notify => Service[$::serf::service_name],
+    notify => Service['serf'],
   }
 
   file {

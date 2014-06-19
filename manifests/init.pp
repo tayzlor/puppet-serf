@@ -42,13 +42,13 @@ class serf (
 
   if is_array($serf::params::service_providers) {
     # Verify the service provider given is in the array
-    if ! ($service_provider in $elasticsearch::params::service_providers) {
+    if ! ($service_provider in $serf::params::service_providers) {
       fail("\"${service_provider}\" is not a valid provider for \"${::operatingsystem}\"")
     }
     $real_service_provider = $service_provider
   } else {
     # There is only one option so simply set it
-    $real_service_provider = $elasticsearch::params::service_providers
+    $real_service_provider = $serf::params::service_providers
   }
 
   Class['install'] ->

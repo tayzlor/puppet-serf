@@ -50,7 +50,7 @@
 # [*init_template*]
 #   Service file as a template
 #
-class serf::service{
+class serf::service(
   $ensure             = $serf::ensure,
   $status             = $serf::status,
   $init_defaults_file = undef,

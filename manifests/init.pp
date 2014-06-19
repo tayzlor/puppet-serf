@@ -32,19 +32,16 @@ class serf (
   $package_ensure   = $::serf::params::package_ensure,
   $config_owner     = $::serf::params::config_owner,
   $config_group     = $::serf::params::config_group,
-) inherits serf::params
-{
+) inherits serf::params {
 
   include install
   include config
 
   Class['install'] ->
-  Class['config'] ~>
+  Class['config']
 
 
   if $handler {
     include handler
-    Class['handler'] ->
-
   }
 }

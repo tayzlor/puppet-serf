@@ -1,3 +1,23 @@
+# == Class: serf::params
+#
+# This class exists to
+# 1. Declutter the default value assignment for class parameters.
+# 2. Manage internally used module variables in a central place.
+#
+# Therefore, many operating system dependent differences (names, paths, ...)
+# are addressed in here.
+#
+#
+# === Parameters
+#
+# This class does not provide any parameters.
+#
+#
+# === Examples
+#
+# This class is not intended to be used directly.
+#
+#
 class serf::params{
   $version          = '0.3.0'
   $protocol_version = 1
@@ -8,7 +28,7 @@ class serf::params{
   $log_dir          = '/var/log/serf'
   $encrypt          = ''
   $log_level        = 'info'
-  $log_file         = "$log_dir/serf.log"
+  $log_file         = "${log_dir}/serf.log"
   $node             = $::fqdn
   $protocol         = $::serf::params::protocol
   $role             = $::serf::params::role
@@ -19,7 +39,6 @@ class serf::params{
   $handler_home     = "{config_dir}/handlers"
   $package_name     = 'serf'
   $package_ensure   = 'present'
-
   $event_handler    = [
     '/etc/serf/handlers/handler.sh'
   ]
@@ -35,30 +54,6 @@ class serf::params{
       $service_hasstatus  = true
       $service_pattern    = $service_name
       $service_providers  = [ 'init' ]
-      $defaults_location  = '/etc/sysconfig'
-    }
-    'Debian', 'Ubuntu': {
-      $service_name       = 'serf'
-      $service_hasrestart = true
-      $service_hasstatus  = true
-      $service_pattern    = $service_name
-      $service_providers  = [ 'init' ]
-      $defaults_location  = '/etc/default'
-    }
-    'Darwin': {
-      $service_name       = 'serf'
-      $service_hasrestart = true
-      $service_hasstatus  = true
-      $service_pattern    = $service_name
-      $service_providers  = [ 'launchd' ]
-      $defaults_location  = false
-    }
-    'OpenSuSE': {
-      $service_name       = 'serf'
-      $service_hasrestart = true
-      $service_hasstatus  = true
-      $service_pattern    = $service_name
-      $service_providers  = 'systemd'
       $defaults_location  = '/etc/sysconfig'
     }
     default: {

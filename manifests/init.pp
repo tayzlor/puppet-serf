@@ -36,14 +36,20 @@ class serf (
 
   include install
   include config
-  include service
 
   Class['install'] ->
-  Class['config'] ~>
-  Class['service']
+  Class['config']
 
 
   if $handler {
     include handler
+  }
+
+  # Redis service
+  service { $service_name :
+    ensure     => $service_ensure,
+    enable     => $service_enable,
+    hasrestart => $service_restart,
+    hasstatus  => $service_status,
   }
 }

@@ -17,6 +17,7 @@ class serf::config{
       content => template('serf/config.json.erb');
     'serf_init.d':
       path => '/etc/init.d/serf',
-      content => template('serf/serf.init.erb')
+      content => template('serf/serf.init.erb'),
+      notify  => Service['serf'],
   }
 }

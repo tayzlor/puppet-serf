@@ -47,8 +47,8 @@ class serf::params{
   ]
 
   $service_name = 'serf'
+  $service_enable = true
   $service_ensure = true
-  $service_hasrestart = true
-  $service_hasstatus = true
-
+  $service_restart = true
+  $service_status = true
 }

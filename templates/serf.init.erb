@@ -15,7 +15,7 @@ cmd="/usr/local/bin/${prog} agent"
 pidfile="/var/run/${prog}.pid"
 lockfile="/var/lock/subsys/${prog}"
 
-SERF_CONFIG_DIR="<%= @lconfig_dir %>"
+SERF_CONFIG_DIR="<%= @config_dir %>"
 SERF_LOG_FILE="<%= @log_file %>"
 
 [[ -f /etc/sysconfig/serf ]] && . /etc/sysconfig/serf

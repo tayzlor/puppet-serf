@@ -14,10 +14,12 @@ class serf::config{
 
     $::serf::config_file:
       ensure  => present,
+      mode   => 755,
       content => template('serf/config.json.erb');
     'serf_init.d':
       path => '/etc/init.d/serf',
       content => template('serf/serf.init.erb'),
+      mode   => 755,
       notify  => Service['serf'],
   }
 }

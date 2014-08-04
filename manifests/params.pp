@@ -24,7 +24,7 @@ class serf::params{
   $bind             = $::ipaddress
   $advertise        = $::ipaddress
   $config_dir       = '/etc/serf'
-  $config_file      = "${config_dir}/serf.conf"
+  $config_file      = "${config_dir}/serf.json"
   $log_dir          = '/var/log/serf'
   $encrypt          = ''
   $log_level        = 'info'

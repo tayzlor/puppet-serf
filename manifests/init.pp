@@ -23,7 +23,7 @@ class serf (
   $log_file         = $::serf::params::log_file,
   $node             = $::serf::params::node,
   $protocol         = $::serf::params::protocol,
-  $tags             = $::serf::params::tags,
+  $tags             = hiera_hash('serf::tags', $::serf::params::tags),
   $rpc_addr         = $::serf::params::rpc_addr,
   $install_url      = $::serf::params::install_url,
   $install_method   = $::serf::params::install_method,

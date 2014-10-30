@@ -20,7 +20,7 @@
 #
 class serf::params{
   $version          = '0.3.0'
-  $protocol_version = 2
+  $protocol_version = undef
   $bind             = $::ipaddress
   $advertise        = $::ipaddress
   $config_dir       = '/etc/serf'
@@ -39,9 +39,7 @@ class serf::params{
   $handler_home     = "{config_dir}/handlers"
   $package_name     = 'serf'
   $package_ensure   = 'present'
-  $event_handler    = [
-    '/etc/serf/handlers/handler.sh'
-  ]
+  $event_handler    = []
   $join             = [
     '127.0.0.1'
   ]

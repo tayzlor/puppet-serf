@@ -27,7 +27,6 @@ class serf (
   $rpc_addr         = $::serf::params::rpc_addr,
   $install_url      = $::serf::params::install_url,
   $install_method   = $::serf::params::install_method,
-  $handler          = $::serf::params::sample_handler,
   $package_name     = $::serf::params::package_name,
   $package_ensure   = $::serf::params::package_ensure,
   $config_owner     = $::serf::params::config_owner,
@@ -39,11 +38,6 @@ class serf (
 
   Class['install'] ->
   Class['config']
-
-
-  if $handler {
-    include handler
-  }
 
   # Redis service
   service { $service_name :
